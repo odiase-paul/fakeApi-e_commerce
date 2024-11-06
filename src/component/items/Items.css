@@ -1,0 +1,19 @@
+.item {
+  width: 199px;
+  padding: 5px;
+}
+
+.item-price-new {
+  color: #374151;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.item:hover {
+  transform: scale(1.05);
+  transition: 0.6s;
+}
+.item img {
+  width: 167px;
+  height: 200px;
+}

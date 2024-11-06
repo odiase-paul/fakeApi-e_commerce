@@ -1,0 +1,8 @@
+.items-display {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+
+  margin: 0 auto;
+}

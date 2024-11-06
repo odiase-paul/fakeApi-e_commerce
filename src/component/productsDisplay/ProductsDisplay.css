@@ -1,0 +1,13 @@
+.show-product-container {
+  gap: 100px;
+}
+.large-image {
+  height: 400px;
+  width: 350px;
+}
+.color-gold {
+  color: gold;
+}
+.lead {
+  gap: 10px;
+}
