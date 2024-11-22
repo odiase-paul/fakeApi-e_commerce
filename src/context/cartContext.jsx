@@ -4,54 +4,48 @@ export const CartContext = createContext(null);
 
 export const CartContextProvider = ({ children }) => {
   const [data, setData] = useState([]);
+  const [cartItem, setCartItem] = useState({});
 
-  const getDefaultCart = () => {
-    let cart = {};
-    for (let i = 0; i < data.length + 1; i++) {
-      cart[i] = 0;
-    }
-    return cart;
-  };
   useEffect(() => {
     fetch("https://fakestoreapi.com/products")
       .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch products");
+        }
         return res.json();
       })
       .then((data) => {
         setData(data);
-        console.log(data);
-      });
+      })
+      .catch((error) => console.error("Error fetching products:", error));
   }, []);
 
-  const [cartItem, setCartItem] = useState(getDefaultCart());
+  useEffect(() => {
+    if (data.length > 0) {
+      const initialCart = {};
+      data.forEach((item, index) => {
+        initialCart[index] = 0;
+      });
+      setCartItem(initialCart);
+    }
+  }, [data]);
 
   const addToCart = (itemId) => {
-    setCartItem((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
-  };
-  const removeFromCart = (itemId) => {
-    setCartItem((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
+    setCartItem((prev) => ({ ...prev, [itemId]: (prev[itemId] || 0) + 1 }));
   };
 
-  //   const getTotalCartAmount = () => {
-  //     let totalAmount = 0;
-  //     for (const item in cartItem) {
-  //       if (cartItem[item] > 0) {
-  //         let itemInfo = data.find((product) => product.id === Number(item));
-  //         totalAmount += itemInfo.new_price * cartItem[item];
-  //       }
-  //     }
-  //     return totalAmount;
-  //   };
-  const getTotalCartItem = () => {
-    let totalItem = 0;
-    for (const item in cartItem) {
-      if (cartItem[item] > 0) {
-        totalItem += cartItem[item];
+  const removeFromCart = (itemId) => {
+    setCartItem((prev) => {
+      if (prev[itemId] > 0) {
+        return { ...prev, [itemId]: prev[itemId] - 1 };
       }
-    }
-    return totalItem;
+      return prev;
+    });
   };
-  console.log(getTotalCartItem());
+
+  const getTotalCartItem = () => {
+    return Object.values(cartItem).reduce((total, count) => total + count, 0);
+  };
 
   const value = {
     data,
@@ -59,7 +53,7 @@ export const CartContextProvider = ({ children }) => {
     addToCart,
     removeFromCart,
     getTotalCartItem,
-    // getTotalCartAmount,
   };
+
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 };
