@@ -1,28 +1,27 @@
 import "./products.css";
-import React from "react";
+import React, { useContext } from "react";
 import Items from "../items/Items";
 import { useState, useEffect } from "react";
 
 const Products = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(data);
-  const [loading, setLoading] = useState(false);
-  let component = true;
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getProducts = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch("https://fakestoreapi.com/products");
+      setData(await response.clone().json());
+      setFilter(await response.json());
+    } catch (error) {
+      console.log("error", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const getProducts = async () => {
-      setLoading(true);
-      const response = await fetch("https://fakestoreapi.com/products");
-      if (component) {
-        setData(await response.clone().json());
-        setFilter(await response.json());
-        setLoading(false);
-        // console.log(filter);
-      }
-      return () => {
-        component = false;
-      };
-    };
     getProducts();
   }, []);
 
@@ -88,7 +87,7 @@ const Products = () => {
       </>
     );
   };
-  return <div className="">{loading ? <Loading /> : <ShowProducts />}</div>;
+  return <div className="">{isLoading ? <Loading /> : <ShowProducts />}</div>;
 };
 
 export default Products;

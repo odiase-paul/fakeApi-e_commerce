@@ -2,10 +2,12 @@ import { Link } from "react-router-dom";
 import "./NavBar.css";
 import { useContext } from "react";
 import { CartContext } from "../../context/cartContext";
+import { auth } from "../../utils/firebase/firebase.utils";
 const NavBar = () => {
-  const { getTotalCartItem } = useContext(CartContext);
+  const { cartItem, userDetails, handleLogout } = useContext(CartContext);
+
   return (
-    <div className="navigation-bar">
+    <div className="navigation-bar ">
       <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
         <div className="container">
           <Link className="navbar-brand fw-bold" to="/">
@@ -46,15 +48,25 @@ const NavBar = () => {
               </li>
             </ul>
             <div className="d-flex column-gap-3">
-              <Link to="/login" className=" btn btn-outline-dark btn-sm">
-                <span className="fa fa-sign-in me-1"></span> Login
-              </Link>
+              {userDetails ? (
+                <Link
+                  className=" btn btn-outline-dark btn-sm"
+                  onClick={handleLogout}
+                >
+                  <span className="fa fa-sign-in me-1"></span> Logout
+                </Link>
+              ) : (
+                <Link to="/login" className=" btn btn-outline-dark btn-sm">
+                  <span className="fa fa-user-plus me-1"></span> Login
+                </Link>
+              )}
               <Link to="/register" className=" btn btn-outline-dark btn-sm">
                 <span className="fa fa-user-plus me-1"></span> Register
               </Link>
               <Link to="/cart" className="btn btn-outline-dark btn-sm">
                 <span className="fa fa-shopping-cart me-1"></span> Cart (
-                {getTotalCartItem()})
+                <span className="text-danger fw-bold"> {cartItem.length} </span>
+                )
               </Link>
             </div>
           </div>

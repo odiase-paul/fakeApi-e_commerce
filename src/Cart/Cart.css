@@ -1,0 +1,31 @@
+.cart-product-image {
+  height: 120px;
+  width: 100px;
+}
+div.cart-middle-data {
+  gap: 80px;
+  margin-top: 100px;
+}
+.cart hr {
+  border: 1.5px solid #ccc;
+  border-radius: 25px;
+}
+.increment,
+.decrement {
+  background: #ececec;
+  padding: 3px 8px;
+  cursor: pointer;
+  font-size: 13px;
+  border-radius: 2px;
+}
+.amount p span {
+  font-family: "Poppins", sans-serif;
+}
+
+.cart-total {
+  width: 30%;
+}
+.checkout-btn {
+  font-size: 13px;
+  font-weight: 600;
+}

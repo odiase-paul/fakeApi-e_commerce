@@ -3,20 +3,84 @@ import "./Cart.css";
 import React from "react";
 import { useContext } from "react";
 const Cart = () => {
-  const { data, cartItem } = useContext(CartContext);
-  console.log("cartItem", cartItem);
+  const { cartItem, addToCart, removeFromCart, getCartTotalAmount } =
+    useContext(CartContext);
+
   return (
-    <div>
-      {data.map((e) => {
-        if (cartItem[e.id] > 0) {
-          return (
-            <div key={e.id}>
-              <h1>{e.image}</h1>
+    <div className="container cart">
+      <div className="mb-5">
+        <h1>Cart Info</h1>
+        <hr />
+      </div>
+
+      {cartItem.map((e) => {
+        return (
+          <div className="cart-top-data" key={e.id}>
+            <div className="cart-middle-data d-flex justify-context-center my-4">
+              <div>
+                <img className="cart-product-image" src={e.image} alt="" />
+              </div>
+              <div>
+                <div>
+                  <h5 className="text-black-50">{e.title}</h5>
+                  <div className="d-flex gap-5 amount">
+                    <p>
+                      Quantity :{" "}
+                      <span className=" text-danger fw-bold">{e.quantity}</span>
+                    </p>
+                    <p>
+                      Amount :{" "}
+                      <span className=" text-danger fw-bold">
+                        ${e.price * e.quantity}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+                <div className="d-flex gap-5">
+                  <span
+                    className="fa fa-plus increment"
+                    onClick={() => addToCart(e)}
+                  ></span>
+                  <span
+                    className="fa fa-minus decrement"
+                    onClick={() => removeFromCart(e)}
+                  ></span>
+                </div>
+              </div>
             </div>
-          );
-        }
-        return null;
+            <hr />
+          </div>
+        );
       })}
+      <div>
+        {cartItem.length > 0 ? (
+          <div>
+            <div className="my-5">
+              <h2>Cart Total</h2>
+            </div>
+            <div className="cart-total">
+              <div className="d-flex  justify-content-between">
+                <p>Shipping Fee</p>
+                <p>Free</p>
+              </div>
+              <hr />
+              <div className="d-flex justify-content-between fs-5 fw-bold">
+                <p>Total</p>
+                <p className="text-danger">$ {getCartTotalAmount()}</p>
+              </div>
+            </div>
+            <div className="my-4">
+              <button className="btn btn-outline-danger px-4 py-2 checkout-btn">
+                PROCEED TO CHECKOUT
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div>
+            <h3 className="text-danger">Your Cart Is Empty</h3>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

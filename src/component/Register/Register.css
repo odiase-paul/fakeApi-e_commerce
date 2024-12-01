@@ -1,0 +1,15 @@
+.register-page input {
+  outline: none;
+}
+.inner-register-page {
+  width: 30%;
+}
+.have-an-account {
+  font-size: 13px;
+}
+.signup-agree p {
+  font-size: 10px;
+}
+.signup-agree {
+  margin-top: -20px;
+}
