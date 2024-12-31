@@ -18,7 +18,10 @@ div.cart-middle-data {
   font-size: 13px;
   border-radius: 2px;
 }
-.amount p span {
+.cart-amount {
+  gap: 3em;
+}
+.cart-amount p span {
   font-family: "Poppins", sans-serif;
 }
 
@@ -28,4 +31,20 @@ div.cart-middle-data {
 .checkout-btn {
   font-size: 13px;
   font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  div.cart-middle-data {
+    gap: 10%;
+  }
+  .cart-heading {
+    font-size: 1.1em;
+  }
+  .cart-amount {
+    gap: 0em;
+    flex-direction: column;
+  }
+  .cart-total {
+    width: 200px;
+  }
 }

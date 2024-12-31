@@ -13,17 +13,17 @@ const Cart = () => {
         <hr />
       </div>
 
-      {cartItem.map((e) => {
+      {cartItem?.map((e) => {
         return (
           <div className="cart-top-data" key={e.id}>
             <div className="cart-middle-data d-flex justify-context-center my-4">
               <div>
-                <img className="cart-product-image" src={e.image} alt="" />
+                <img className="cart-product-image" src={e?.image} alt="" />
               </div>
               <div>
                 <div>
-                  <h5 className="text-black-50">{e.title}</h5>
-                  <div className="d-flex gap-5 amount">
+                  <h5 className="text-black-50 cart-heading">{e.title}</h5>
+                  <div className="d-flex  cart-amount">
                     <p>
                       Quantity :{" "}
                       <span className=" text-danger fw-bold">{e.quantity}</span>
@@ -31,7 +31,7 @@ const Cart = () => {
                     <p>
                       Amount :{" "}
                       <span className=" text-danger fw-bold">
-                        ${e.price * e.quantity}
+                        ${Math.round(e.price * e.quantity)}
                       </span>
                     </p>
                   </div>
@@ -60,13 +60,15 @@ const Cart = () => {
             </div>
             <div className="cart-total">
               <div className="d-flex  justify-content-between">
-                <p>Shipping Fee</p>
+                <p>Shipping Fee:</p>
                 <p>Free</p>
               </div>
               <hr />
               <div className="d-flex justify-content-between fs-5 fw-bold">
-                <p>Total</p>
-                <p className="text-danger">$ {getCartTotalAmount()}</p>
+                <p>Total:</p>
+                <p className="text-danger">
+                  $ {Math.round(getCartTotalAmount())}
+                </p>
               </div>
             </div>
             <div className="my-4">

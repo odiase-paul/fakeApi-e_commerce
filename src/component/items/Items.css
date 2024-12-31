@@ -5,7 +5,7 @@
 
 .item-price-new {
   color: #374151;
-  font-size: 18px;
+  font-size: 1.15em;
   font-weight: 600;
 }
 
@@ -16,4 +16,24 @@
 .item img {
   width: 167px;
   height: 200px;
+}
+
+@media (max-width: 480px) {
+  .item {
+    width: 100%;
+    max-width: 43%;
+  }
+  .item img {
+    width: 100%;
+    height: auto;
+  }
+  .item .item-heading {
+    font-size: 1.1em;
+    font-weight: 500;
+  }
+
+  .item .item-button {
+    font-weight: 500;
+    font-size: 0.9em;
+  }
 }

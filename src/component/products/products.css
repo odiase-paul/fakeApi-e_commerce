@@ -3,6 +3,25 @@
   flex-wrap: wrap;
   gap: 30px;
   justify-content: center;
-
   margin: 0 auto;
+}
+
+/* Media query */
+
+@media (max-width: 480px) {
+  .filter-products {
+    flex-wrap: wrap;
+    row-gap: 0.9rem;
+    column-gap: 0.3em;
+    padding-left: 5px;
+  }
+  .filter-products button {
+    font-size: 0.9em;
+    font-weight: 500;
+  }
+  .items-display {
+    column-gap: 5%;
+    row-gap: 30px;
+    margin-bottom: 50px;
+  }
 }

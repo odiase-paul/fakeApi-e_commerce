@@ -1,5 +1,5 @@
 import "./products.css";
-import React, { useContext } from "react";
+import React from "react";
 import Items from "../items/Items";
 import { useState, useEffect } from "react";
 
@@ -7,6 +7,11 @@ const Products = () => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(data);
   const [isLoading, setIsLoading] = useState(false);
+  const [activeButton, setActiveButton] = useState(null);
+
+  const handleActiveButton = (buttonClick) => {
+    setActiveButton(buttonClick);
+  };
 
   const getProducts = async () => {
     try {
@@ -23,6 +28,7 @@ const Products = () => {
 
   useEffect(() => {
     getProducts();
+    setActiveButton("All");
   }, []);
 
   const Loading = () => {
@@ -33,39 +39,66 @@ const Products = () => {
     const selectItems = data.filter((item) => item.category === items);
     setFilter(selectItems);
   };
+
   const ShowProducts = () => {
     return (
       <>
-        <div className="buttons mb-5 pb-5 d-flex justify-content-center">
+        <div className="buttons filter-products mb-5 pb-5 d-flex justify-content-center">
           <button
-            className="btn btn-outline-dark me-2"
-            onClick={() => setFilter(data)}
+            className={`btn btn-outline-dark me-2  ${
+              activeButton === "All" ? "active" : ""
+            }`}
+            onClick={() => {
+              setFilter(data);
+              handleActiveButton("All");
+            }}
           >
             All
           </button>
+
           <button
-            className="btn btn-outline-dark me-2"
-            onClick={() => filterProduct("men's clothing")}
-          >
-            Men's clothing
-          </button>
-          <button
-            className="btn btn-outline-dark me-2"
-            onClick={() => filterProduct("women's clothing")}
-          >
-            Women's clothing
-          </button>
-          <button
-            className="btn btn-outline-dark me-2"
-            onClick={() => filterProduct("jewelery")}
+            className={`btn btn-outline-dark me-2 ${
+              activeButton === "Jewelery" ? "active" : ""
+            }`}
+            onClick={() => {
+              filterProduct("jewelery");
+              handleActiveButton("Jewelery");
+            }}
           >
             Jewelery
           </button>
           <button
-            className="btn btn-outline-dark me-2"
-            onClick={() => filterProduct("electronics")}
+            className={`btn btn-outline-dark me-2 ${
+              activeButton === "Electronic" ? "active" : ""
+            }`}
+            onClick={() => {
+              filterProduct("electronics");
+              handleActiveButton("Electronic");
+            }}
           >
             Electronic
+          </button>
+          <button
+            className={`btn btn-outline-dark me-2 ${
+              activeButton === "Men's clothing" ? "active" : ""
+            }`}
+            onClick={() => {
+              filterProduct("men's clothing");
+              handleActiveButton("Men's clothing");
+            }}
+          >
+            Men's clothing
+          </button>
+          <button
+            className={`btn btn-outline-dark me-2 ${
+              activeButton === "Women's clothing" ? "active" : ""
+            }`}
+            onClick={() => {
+              filterProduct("women's clothing");
+              handleActiveButton("Women's clothing");
+            }}
+          >
+            Women's clothing
           </button>
         </div>
 

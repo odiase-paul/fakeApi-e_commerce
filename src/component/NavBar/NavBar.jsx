@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import "./NavBar.css";
 import { useContext } from "react";
 import { CartContext } from "../../context/cartContext";
-import { auth } from "../../utils/firebase/firebase.utils";
+
 const NavBar = () => {
   const { cartItem, userDetails, handleLogout } = useContext(CartContext);
 
@@ -10,11 +10,11 @@ const NavBar = () => {
     <div className="navigation-bar ">
       <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
         <div className="container">
-          <Link className="navbar-brand fw-bold" to="/">
+          <Link className="navbar-brand pakh fw-bold" to="/">
             PAKH
           </Link>
           <button
-            className="navbar-toggler"
+            className="navbar-toggler navbar-toggle-size"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarText"
@@ -28,14 +28,10 @@ const NavBar = () => {
             <ul className="navbar-nav fs-5 fw-normal mx-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <Link className="nav-link active" aria-current="page" to="/">
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="products">
                   Products
                 </Link>
               </li>
+
               <li className="nav-item">
                 <Link className="nav-link" to="about">
                   About
@@ -60,12 +56,13 @@ const NavBar = () => {
                   <span className="fa fa-user-plus me-1"></span> Login
                 </Link>
               )}
-              <Link to="/register" className=" btn btn-outline-dark btn-sm">
-                <span className="fa fa-user-plus me-1"></span> Register
-              </Link>
+
               <Link to="/cart" className="btn btn-outline-dark btn-sm">
                 <span className="fa fa-shopping-cart me-1"></span> Cart (
-                <span className="text-danger fw-bold"> {cartItem.length} </span>
+                <span className="text-danger fw-bold">
+                  {" "}
+                  {cartItem?.length}{" "}
+                </span>
                 )
               </Link>
             </div>

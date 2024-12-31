@@ -1,3 +1,11 @@
 .navigation-bar {
   margin-bottom: 100px;
 }
+
+/* MEDIA QUERY */
+
+@media (max-width: 480px) {
+  .navbar-toggle-size {
+    font-size: 0.8em;
+  }
+}

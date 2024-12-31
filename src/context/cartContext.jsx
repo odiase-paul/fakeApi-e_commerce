@@ -1,17 +1,26 @@
 import { createContext, useState, useEffect } from "react";
 import { auth, db } from "../utils/firebase/firebase.utils";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import {
+  arrayRemove,
+  arrayUnion,
+  doc,
+  getDoc,
+  setDoc,
+  updateDoc,
+} from "firebase/firestore";
 
 export const CartContext = createContext(null);
 
 export const CartContextProvider = ({ children }) => {
   const [data, setData] = useState([]);
   const [userDetails, setUserDetails] = useState(null);
-  const [cartItem, setCartItem] = useState(
-    localStorage.getItem("cartItem")
-      ? JSON.parse(localStorage.getItem("cartItem"))
-      : []
-  );
+  const [cartItem, setCartItem] = useState([]);
+
+  const [stateUser, setStateUser] = useState(null);
+  useEffect(() => {
+    const user = auth.onAuthStateChanged(setStateUser);
+    return () => user();
+  }, []);
 
   //fetch products
 
@@ -50,41 +59,84 @@ export const CartContextProvider = ({ children }) => {
     try {
       await auth.signOut();
       window.location.href = "/login";
-      console.log("user logged out");
+      console.log("user logged out", userDetails);
     } catch (error) {
       console.error("Error logging out", error.message);
     }
   };
 
+  //firestoreCartItem
+
+  useEffect(() => {
+    if (stateUser) {
+      const fetchCart = async () => {
+        const docRef = doc(db, "carts", stateUser.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setCartItem(docSnap.data().items);
+        } else {
+          await setDoc(docRef, { items: [] });
+        }
+      };
+      fetchCart();
+    } else {
+      setCartItem([]);
+    }
+  }, [userDetails]);
+
   //addToCart
 
-  const addToCart = (item) => {
-    const isItemInCart = cartItem.find((e) => e.id === item.id);
+  const addToCart = async (item) => {
+    if (stateUser) {
+      const docRef = doc(db, "carts", stateUser.uid);
+      const docSnap = await getDoc(docRef);
 
-    if (isItemInCart) {
-      setCartItem(
-        cartItem.map((e) =>
-          e.id === item.id ? { ...e, quantity: e.quantity + 1 } : e
-        )
-      );
-    } else {
-      setCartItem([...cartItem, { ...item, quantity: 1 }]);
+      if (docSnap.exists()) {
+        const cartData = docSnap.data();
+        const existingItem = cartData.items?.find((e) => e.id === item.id);
+        if (existingItem) {
+          const updateItem = cartData.items.map((product) =>
+            product.id === item.id
+              ? { ...product, quantity: product.quantity + 1 }
+              : product
+          );
+          await updateDoc(docRef, { items: updateItem });
+          setCartItem(updateItem);
+        } else {
+          const newItem = { ...item, quantity: 1 };
+          await updateDoc(docRef, { items: arrayUnion(newItem) });
+          setCartItem((prev) => [...prev, newItem]);
+        }
+      } else {
+        const newItem = { ...item, quantity: 1 };
+        await setDoc(docRef, { items: [newItem] });
+        setCartItem([newItem]);
+      }
     }
   };
 
   //RemoveFromCart
 
-  const removeFromCart = (item) => {
-    const isItemInCart = cartItem.find((e) => e.id === item.id);
+  const removeFromCart = async (item) => {
+    if (stateUser) {
+      const docRef = doc(db, "carts", stateUser.uid);
+      const docSnap = await getDoc(docRef);
 
-    if (isItemInCart.quantity === 1) {
-      setCartItem(cartItem.filter((e) => e.id !== item.id));
-    } else {
-      setCartItem(
-        cartItem.map((e) =>
-          e.id === item.id ? { ...e, quantity: e.quantity - 1 } : e
-        )
-      );
+      if (docSnap.exists()) {
+        const cartData = docSnap.data();
+        const decreaseItem = cartData.items.find((e) => e.id === item.id);
+        if (decreaseItem && decreaseItem.quantity > 1) {
+          const updateItem = cartData.items.map((e) =>
+            e.id === item.id ? { ...e, quantity: e.quantity - 1 } : e
+          );
+
+          await updateDoc(docRef, { items: updateItem });
+          setCartItem(updateItem);
+        } else {
+          await updateDoc(docRef, { items: arrayRemove(decreaseItem) });
+          setCartItem((prev) => prev.filter((e) => e.id !== item.id));
+        }
+      }
     }
   };
 
@@ -96,16 +148,7 @@ export const CartContextProvider = ({ children }) => {
       0
     );
   };
-
-  useEffect(() => {
-    localStorage.setItem("cartItem", JSON.stringify(cartItem));
-  }, [cartItem]);
-  useEffect(() => {
-    const cartItem = localStorage.getItem("cartItem");
-    if (cartItem) {
-      setCartItem(JSON.parse(cartItem));
-    }
-  }, []);
+  //local storage
 
   const value = {
     handleLogout,

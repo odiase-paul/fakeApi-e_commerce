@@ -3,6 +3,7 @@ import "./Login.css";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../utils/firebase/firebase.utils";
 import { toast, ToastContainer } from "react-toastify";
+import { Link } from "react-router-dom";
 
 const defaultField = {
   email: "",
@@ -67,6 +68,17 @@ const Login = () => {
             <button type="submit" className="btn btn-danger w-50">
               Login
             </button>
+          </div>
+          <div className="mt-4 have-an-account">
+            <p className="">
+              Do not have an account?{" "}
+              <Link
+                to="/register"
+                className="text-danger fw-bold text-decoration-none"
+              >
+                Register
+              </Link>
+            </p>
           </div>
         </form>
       </div>
