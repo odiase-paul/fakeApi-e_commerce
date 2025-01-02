@@ -14,8 +14,22 @@
   transition: 0.6s;
 }
 .item img {
+  object-fit: contain;
   width: 167px;
   height: 200px;
+}
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.item {
+  animation: slideIn 1s ease-out;
 }
 
 @media (max-width: 480px) {
@@ -23,9 +37,14 @@
     width: 100%;
     max-width: 43%;
   }
+  .item-image-div {
+    height: 25vh;
+    min-height: 60%;
+  }
   .item img {
+    object-fit: contain;
     width: 100%;
-    /* height: auto; */
+    height: 100%;
   }
   .item .item-heading {
     font-size: 1.1em;
