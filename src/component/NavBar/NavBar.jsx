@@ -1,11 +1,18 @@
 import { Link } from "react-router-dom";
 import "./NavBar.css";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CartContext } from "../../context/cartContext";
 
 const NavBar = () => {
   const { cartItem, userDetails, handleLogout } = useContext(CartContext);
+  const [activeButton, setActiveButton] = useState(null);
 
+  const handleClick = (buttonClick) => {
+    setActiveButton(buttonClick);
+  };
+  useEffect(() => {
+    setActiveButton("Products");
+  }, []);
   return (
     <div className="navigation-bar ">
       <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
@@ -27,18 +34,37 @@ const NavBar = () => {
           <div className="collapse navbar-collapse" id="navbarText">
             <ul className="navbar-nav fs-5 fw-normal mx-auto mb-2 mb-lg-0">
               <li className="nav-item">
-                <Link className="nav-link active" aria-current="page" to="/">
+                <Link
+                  className={`nav-link ${
+                    activeButton === "Products" ? "text-danger" : ""
+                  }`}
+                  onClick={() => handleClick("Products")}
+                  aria-current="page"
+                  to="/"
+                >
                   Products
                 </Link>
               </li>
 
               <li className="nav-item">
-                <Link className="nav-link" to="about">
+                <Link
+                  className={`nav-link ${
+                    activeButton === "Abouts" ? "text-danger" : ""
+                  }`}
+                  onClick={() => handleClick("Abouts")}
+                  to="aboutUs"
+                >
                   About
                 </Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="contact">
+                <Link
+                  className={`nav-link ${
+                    activeButton === "Contact" ? "text-danger" : ""
+                  }`}
+                  onClick={() => handleClick("Contact")}
+                  to="contact"
+                >
                   Contact
                 </Link>
               </li>

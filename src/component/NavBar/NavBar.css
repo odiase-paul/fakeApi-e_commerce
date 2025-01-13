@@ -1,7 +1,9 @@
 .navigation-bar {
-  margin-bottom: 100px;
+  margin-bottom: 65px;
 }
-
+.navbar-nav li {
+  font-weight: 500;
+}
 /* MEDIA QUERY */
 
 @media (max-width: 480px) {

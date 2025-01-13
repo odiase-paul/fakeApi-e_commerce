@@ -34,7 +34,7 @@ const Login = () => {
   // firebase
 
   return (
-    <div className="login-page">
+    <div className="login-page d-flex justify-content-center align-items-center">
       <div className="inner-register-page m-auto align-items-center p-4 shadow bg-white">
         <h1 className="mb-4">Login</h1>
         <div></div>
@@ -81,8 +81,8 @@ const Login = () => {
             </p>
           </div>
         </form>
+        <ToastContainer />
       </div>
-      <ToastContainer />
     </div>
   );
 };

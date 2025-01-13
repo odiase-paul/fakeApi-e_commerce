@@ -148,7 +148,6 @@ export const CartContextProvider = ({ children }) => {
       0
     );
   };
-  //local storage
 
   const value = {
     handleLogout,

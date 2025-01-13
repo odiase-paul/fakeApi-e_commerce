@@ -7,7 +7,7 @@ const Cart = () => {
     useContext(CartContext);
 
   return (
-    <div className="container cart">
+    <div className="container cart pt-4">
       <div className="mb-5">
         <h1>Cart Info</h1>
         <hr />

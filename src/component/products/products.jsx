@@ -43,7 +43,7 @@ const Products = () => {
   const ShowProducts = () => {
     return (
       <>
-        <div className="buttons filter-products mb-5 pb-5 d-flex justify-content-center">
+        <div className="buttons filter-products mb-3 pb-5 d-flex justify-content-center">
           <button
             className={`btn btn-outline-dark me-2  ${
               activeButton === "All" ? "active" : ""

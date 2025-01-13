@@ -55,18 +55,4 @@
     font-weight: 500;
     font-size: 0.9em;
   }
-
-  @keyframes slideIn {
-    from {
-      transform: translateX(-100%);
-      opacity: 0;
-    }
-    to {
-      transform: translateX(0);
-      opacity: 1;
-    }
-  }
-  .item {
-    animation: slideIn 1s ease-out;
-  }
 }

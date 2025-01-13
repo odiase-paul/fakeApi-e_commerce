@@ -49,7 +49,7 @@ const Register = () => {
     setFormField({ ...formField, [name]: value });
   };
   return (
-    <div className="register-page">
+    <div className="register-page d-flex justify-content-center align-items-center">
       <div className="inner-register-page m-auto align-items-center p-4 shadow bg-white">
         <h1 className="mb-4">Sign Up</h1>
         <div></div>
@@ -130,8 +130,8 @@ const Register = () => {
             </p>
           </div>
         </form>
+        <ToastContainer />
       </div>
-      <ToastContainer />
     </div>
   );
 };

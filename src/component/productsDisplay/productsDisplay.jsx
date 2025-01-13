@@ -19,7 +19,7 @@ const ProductsDisplay = () => {
   }, []);
 
   return (
-    <div className="container d-flex justify-content-center show-product-container my-5 ">
+    <div className="container d-flex justify-content-center show-product-container my-5 pt-5">
       <div className=" image-div    ">
         <img className="large-image" src={itemsDisplay?.image} alt="" />
       </div>
