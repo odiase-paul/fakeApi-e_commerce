@@ -4,9 +4,9 @@
 }
 
 .item-price-new {
-  color: #374151;
-  font-size: 1.15em;
+  font-size: 1.1em;
   font-weight: 600;
+  font-family: "Poppins", sans-serif;
 }
 
 .item:hover {

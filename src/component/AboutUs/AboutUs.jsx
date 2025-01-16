@@ -15,10 +15,9 @@ const AboutUs = () => {
             title="advert"
             width="100%"
             height="360"
-            // src="https://www.youtube.com/embed/gbLmku5QACM?autoplay=1&mute=1&loop=1&playlist=gbLmku5QACM"
-            src="https://www.youtube.com/embed/gbLmku5QAC"
-            frameBorder="0"
+            src="https://www.youtube.com/embed/gbLmku5QACM?autoplay=1&mute=1&loop=1&playlist=gbLmku5QACM"
             allow="autoplay"
+            frameBorder="0"
           ></iframe>
         </div>
 
@@ -44,7 +43,7 @@ const AboutUs = () => {
         </div>
       </div>
       <div className="about-us-background-image my-5 d-flex justify-content-center align-items-center">
-        <p>Explore. Shop. Enjoy</p>
+        <p>Explore. Shop. Enjoy.</p>
         <p>Stay Happy</p>
       </div>
       <div className="about-us-mission row my-5">

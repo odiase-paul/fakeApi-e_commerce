@@ -21,8 +21,10 @@ div.cart-middle-data {
 .cart-amount {
   gap: 3em;
 }
+.cart-total-price,
 .cart-amount p span {
   font-family: "Poppins", sans-serif;
+  font-weight: 600;
 }
 
 .cart-total {

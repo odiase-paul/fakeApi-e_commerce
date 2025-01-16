@@ -27,3 +27,25 @@
   object-fit: cover;
   background-position: center;
 }
+
+@media (max-width: 480px) {
+  .about-us-background-image {
+    font-size: 1.7em;
+    height: 50vh;
+  }
+  .about-us-mission {
+    flex-direction: column-reverse;
+  }
+  .about-us-mv-div {
+    height: 45vh;
+  }
+  .about-us-mv-div img {
+    height: 45vh;
+  }
+  .about-us-video .video {
+    margin-bottom: 20px;
+  }
+  .video iframe {
+    height: 40vh;
+  }
+}

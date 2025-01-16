@@ -1,18 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./NavBar.css";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { CartContext } from "../../context/cartContext";
 
 const NavBar = () => {
-  const { cartItem, userDetails, handleLogout } = useContext(CartContext);
-  const [activeButton, setActiveButton] = useState(null);
+  const location = useLocation();
 
-  const handleClick = (buttonClick) => {
-    setActiveButton(buttonClick);
-  };
-  useEffect(() => {
-    setActiveButton("Products");
-  }, []);
+  const { cartItem, userDetails, handleLogout } = useContext(CartContext);
+
   return (
     <div className="navigation-bar ">
       <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
@@ -36,9 +31,8 @@ const NavBar = () => {
               <li className="nav-item">
                 <Link
                   className={`nav-link ${
-                    activeButton === "Products" ? "text-danger" : ""
+                    location.pathname === "/" ? "text-danger" : ""
                   }`}
-                  onClick={() => handleClick("Products")}
                   aria-current="page"
                   to="/"
                 >
@@ -49,9 +43,8 @@ const NavBar = () => {
               <li className="nav-item">
                 <Link
                   className={`nav-link ${
-                    activeButton === "Abouts" ? "text-danger" : ""
+                    location.pathname === "/aboutUs" ? "text-danger" : ""
                   }`}
-                  onClick={() => handleClick("Abouts")}
                   to="aboutUs"
                 >
                   About
@@ -60,9 +53,8 @@ const NavBar = () => {
               <li className="nav-item">
                 <Link
                   className={`nav-link ${
-                    activeButton === "Contact" ? "text-danger" : ""
+                    location.pathname === "/contact" ? "text-danger" : ""
                   }`}
-                  onClick={() => handleClick("Contact")}
                   to="contact"
                 >
                   Contact

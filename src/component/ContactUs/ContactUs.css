@@ -21,3 +21,25 @@
   height: 80vh;
   min-height: 100%;
 }
+.contactForm-inner {
+  padding: 50px;
+}
+
+@media (max-width: 480px) {
+  .banner-holder {
+    height: 40vh;
+    min-height: 100%;
+  }
+  .contant-us-banner {
+    font-size: 1.5em;
+  }
+  .contactForm button {
+    width: 70%;
+  }
+  .contactForm-inner {
+    padding: 50px 20px;
+  }
+  .contact-us-information .follow-us-on-sm {
+    font-size: 0.8em;
+  }
+}

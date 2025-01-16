@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import emailjs from "emailjs-com";
+import "./ContactUs.css";
 const defaultField = {
   name: "",
   subject: "",
@@ -44,7 +45,7 @@ const ContactUsForm = () => {
   };
   return (
     <div className="contactForm">
-      <div className="w-100 m-auto align-items-center p-5 shadow bg-white">
+      <div className="w-100 m-auto align-items-center shadow bg-white contactForm-inner">
         <h2 className="mb-4">Contact Form</h2>
         <div></div>
         <form className="d-grid" action="" onSubmit={handleSubmit}>
@@ -98,8 +99,8 @@ const ContactUsForm = () => {
             />
           </div>
 
-          <div className="">
-            <button type="submit" className="btn btn-danger w-50 mb-2">
+          <div className="contact-us-form-send-message">
+            <button type="submit" className="btn btn-danger  mb-2">
               Send Message
             </button>
 

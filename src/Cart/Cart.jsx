@@ -26,11 +26,11 @@ const Cart = () => {
                   <div className="d-flex  cart-amount">
                     <p>
                       Quantity :{" "}
-                      <span className=" text-danger fw-bold">{e.quantity}</span>
+                      <span className=" text-danger">{e.quantity}</span>
                     </p>
                     <p>
                       Amount :{" "}
-                      <span className=" text-danger fw-bold">
+                      <span className=" text-danger">
                         ${Math.round(e.price * e.quantity)}
                       </span>
                     </p>
@@ -64,9 +64,9 @@ const Cart = () => {
                 <p>Free</p>
               </div>
               <hr />
-              <div className="d-flex justify-content-between fs-5 fw-bold">
+              <div className=" d-flex justify-content-between fs-5 fw-bold">
                 <p>Total:</p>
-                <p className="text-danger">
+                <p className="cart-total-price text-danger">
                   $ {Math.round(getCartTotalAmount())}
                 </p>
               </div>

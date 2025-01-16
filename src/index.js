@@ -4,16 +4,31 @@ import "./index.css";
 import App from "./App";
 import { BrowserRouter } from "react-router-dom";
 import { CartContextProvider } from "./context/cartContext";
+import { ProductContextProvider } from "./context/productContext";
+
+const isDevelopment = process.env.NODE_ENV === "development";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
+  isDevelopment ? (
     <BrowserRouter>
-      <CartContextProvider>
-        <App />
-      </CartContextProvider>
+      <ProductContextProvider>
+        <CartContextProvider>
+          <App />
+        </CartContextProvider>
+      </ProductContextProvider>
     </BrowserRouter>
-  </React.StrictMode>
+  ) : (
+    <React.StrictMode>
+      <BrowserRouter>
+        <ProductContextProvider>
+          <CartContextProvider>
+            <App />
+          </CartContextProvider>
+        </ProductContextProvider>
+      </BrowserRouter>
+    </React.StrictMode>
+  )
 );
 
 // If you want to start measuring performance in your app, pass a function
